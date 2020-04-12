@@ -1,14 +1,31 @@
 - hosts: webservers
-  user: vagrant
+  remote_user: root
+  become: true
   tasks:
     - name: install packages
-      remote_user: root
-      become: true
       apt:
         pkg:
         - nginx
 
+    - name: create dir
+      command: mkdir -p /usr/www/html
+
+    - name: sync html
+      synchronize:
+        src: html/index.html
+        dest: /usr/www/html/index.html
+
+    - name: sync nginx sites setting
+      synchronize:
+        src: nginx/mynet
+        dest: /etc/nginx/sites-available
+
+    - name: set link
+      shell: |
+        ln -fsv /etc/nginx/sites-available/mynet /etc/nginx/sites-enabled/mynet
+        if [ -f /etc/nginx/sites-enabled/default ]; then
+          rm -rf /etc/nginx/sites-enabled/default
+        fi
+
     - name: run nginx
-      remote_user: root
-      become: true
-      command: systemctl start nginx
+      command: systemctl restart nginx
