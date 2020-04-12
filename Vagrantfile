@@ -67,4 +67,10 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.provision "file", source: "~/.ssh/kadai.pub", destination: "/home/vagrant/.ssh/kadai.pub"
+  config.vm.provision "shell", inline: <<-SHELL
+    cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
 end
