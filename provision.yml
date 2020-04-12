@@ -43,5 +43,5 @@
         pkg:
         - unbound
 
-    - name: run nginx
+    - name: run unbound
       command: systemctl restart unbound
