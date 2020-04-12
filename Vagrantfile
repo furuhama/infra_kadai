@@ -71,6 +71,11 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.provision "file", source: "~/.ssh/kadai.pub", destination: "/home/vagrant/.ssh/kadai.pub"
   config.vm.provision "shell", inline: <<-SHELL
-    cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
+    # cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
+
+    # apt update
+    # apt install -y software-properties-common
+    # apt-add-repository --yes --update ppa:ansible/ansible
+    # apt install -y ansible
   SHELL
 end
