@@ -1,4 +1,4 @@
-- hosts: webserver
+- hosts: web
   remote_user: root
   become: true
   gather_facts: no
