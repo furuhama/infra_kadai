@@ -68,8 +68,8 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
-  config.vm.define "webserver" do |server|
-    server.vm.hostname = "webserver"
+  config.vm.define "web" do |server|
+    server.vm.hostname = "web"
     server.vm.network "private_network", ip: "192.168.33.10"
     server.vm.provision "file", source: "~/.ssh/kadai.pub", destination: "/home/vagrant/.ssh/kadai.pub"
     server.vm.provision "shell", inline: <<-SHELL
@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "dns" do |server|
-    server.vm.hostname = "webserver"
+    server.vm.hostname = "dns"
     server.vm.network "private_network", ip: "192.168.34.11"
     server.vm.provision "file", source: "~/.ssh/kadai.pub", destination: "/home/vagrant/.ssh/kadai.pub"
     server.vm.provision "shell", inline: <<-SHELL
