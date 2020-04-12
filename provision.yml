@@ -1,9 +1,11 @@
 - hosts: webserver
   remote_user: root
   become: true
+  gather_facts: no
   tasks:
     - name: install packages
       apt:
+        update_cache: yes
         pkg:
         - nginx
 
@@ -29,3 +31,17 @@
 
     - name: run nginx
       command: systemctl restart nginx
+
+- hosts: dns
+  remote_user: root
+  become: true
+  gather_facts: no
+  tasks:
+    - name: install packages
+      apt:
+        update_cache: yes
+        pkg:
+        - unbound
+
+    - name: run nginx
+      command: systemctl restart unbound
