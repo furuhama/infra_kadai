@@ -43,5 +43,14 @@
         pkg:
         - unbound
 
+    - name: sync unbound conf
+      synchronize:
+        src: unbound/mynet.conf
+        dest: /etc/unbound/unbound.conf.d/mynet.conf
+
+    - name: change permission
+      shell: |
+        chmod 755 /etc/unbound/unbound.conf.d/mynet.conf
+
     - name: run unbound
       command: systemctl restart unbound
