@@ -1,0 +1,14 @@
+- hosts: webservers
+  user: vagrant
+  tasks:
+    - name: install packages
+      remote_user: root
+      become: true
+      apt:
+        pkg:
+        - nginx
+
+    - name: run nginx
+      remote_user: root
+      become: true
+      command: systemctl start nginx
