@@ -82,6 +82,18 @@
         pkg:
         - nginx
 
+    - name: sync nginx sites setting
+      synchronize:
+        src: nginx/mynet.revprx
+        dest: /etc/nginx/sites-available/mynet
+
+    - name: set link
+      shell: |
+        ln -fsv /etc/nginx/sites-available/mynet /etc/nginx/sites-enabled/mynet
+        if [ -f /etc/nginx/sites-enabled/default ]; then
+          rm -rf /etc/nginx/sites-enabled/default
+        fi
+
     - name: sync resolved.conf
       synchronize:
         src: systemd/resolved.conf.revprx
@@ -89,3 +101,6 @@
 
     - name: restart systemd-resolved
       command: systemctl restart systemd-resolved
+
+    - name: run nginx
+      command: systemctl restart nginx
