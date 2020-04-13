@@ -85,4 +85,13 @@ Vagrant.configure("2") do |config|
       cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
     SHELL
   end
+
+  config.vm.define "revprx" do |server|
+    server.vm.hostname = "revprx"
+    server.vm.network "private_network", ip: "192.168.35.12"
+    server.vm.provision "file", source: "~/.ssh/kadai.pub", destination: "/home/vagrant/.ssh/kadai.pub"
+    server.vm.provision "shell", inline: <<-SHELL
+      cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
+    SHELL
+  end
 end

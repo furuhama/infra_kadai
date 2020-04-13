@@ -70,3 +70,22 @@
 
     - name: run unbound
       command: systemctl restart unbound
+
+- hosts: revprx
+  remote_user: root
+  become: true
+  gather_facts: no
+  tasks:
+    - name: install packages
+      apt:
+        update_cache: yes
+        pkg:
+        - nginx
+
+    - name: sync resolved.conf
+      synchronize:
+        src: systemd/resolved.conf.revprx
+        dest: /etc/systemd/resolved.conf
+
+    - name: restart systemd-resolved
+      command: systemctl restart systemd-resolved
