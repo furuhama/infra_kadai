@@ -50,7 +50,7 @@
 
     - name: sync resolved.conf
       synchronize:
-        src: systemd/resolved.conf
+        src: systemd/resolved.conf.dns
         dest: /etc/systemd/resolved.conf
 
     - name: restart systemd-resolved
