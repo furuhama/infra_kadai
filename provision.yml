@@ -29,6 +29,14 @@
           rm -rf /etc/nginx/sites-enabled/default
         fi
 
+    - name: sync resolved.conf
+      synchronize:
+        src: systemd/resolved.conf.web
+        dest: /etc/systemd/resolved.conf
+
+    - name: restart systemd-resolved
+      command: systemctl restart systemd-resolved
+
     - name: run nginx
       command: systemctl restart nginx
 
