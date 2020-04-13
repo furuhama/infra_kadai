@@ -19,8 +19,8 @@
 
     - name: sync nginx sites setting
       synchronize:
-        src: nginx/mynet
-        dest: /etc/nginx/sites-available
+        src: nginx/mynet.web
+        dest: /etc/nginx/sites-available/mynet
 
     - name: set link
       shell: |
