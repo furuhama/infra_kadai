@@ -48,6 +48,14 @@
         src: unbound/mynet.conf
         dest: /etc/unbound/unbound.conf.d/mynet.conf
 
+    - name: sync resolved.conf
+      synchronize:
+        src: systemd/resolved.conf
+        dest: /etc/systemd/resolved.conf
+
+    - name: restart systemd-resolved
+      command: systemctl restart systemd-resolved
+
     - name: change permission
       shell: |
         chmod 755 /etc/unbound/unbound.conf.d/mynet.conf
