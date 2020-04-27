@@ -60,7 +60,7 @@
 
     - name: install ruby 2.5.5
       shell: |
-        if [ ! -f /usr/local/bin/ruby ]; then
+        if [ ! -d /usr/local/bin/ruby ]; then
           ruby-build 2.5.5 /usr/local/bin/ruby
         fi
 
