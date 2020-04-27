@@ -75,6 +75,7 @@ Vagrant.configure("2") do |config|
     server.vm.provision "shell", inline: <<-SHELL
       cat /home/vagrant/.ssh/kadai.pub >> /home/vagrant/.ssh/authorized_keys
     SHELL
+    server.vm.provision "file", source: "./.bashrc", destination: "/home/vagrant/.bashrc"
   end
 
   config.vm.define "dns" do |server|
