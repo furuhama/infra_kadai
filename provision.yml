@@ -64,6 +64,18 @@
           ruby-build 2.5.5 /usr/local/bin/ruby
         fi
 
+    - name: install n (node version manager)
+      shell: |
+        if [ ! -d /home/vagrant/n ]; then
+          curl -L https://git.io/n-install | bash
+        fi
+
+    - name: install node 13.11.0
+      shell: |
+        if [ ! -f /usr/local/bin/node ]; then
+          n 13.11.0
+        fi
+
 - hosts: dns
   remote_user: root
   become: true
