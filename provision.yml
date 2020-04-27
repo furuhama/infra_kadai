@@ -8,6 +8,18 @@
         update_cache: yes
         pkg:
         - nginx
+        # ruby
+        - autoconf
+        - bison
+        - build-essential
+        - libssl-dev
+        - libyaml-dev
+        - libreadline6-dev
+        - zlib1g-dev
+        - libncurses5-dev
+        - libffi-dev
+        - libgdbm5
+        - libgdbm-dev
 
     - name: create dir
       command: mkdir -p /usr/www/html
@@ -39,6 +51,18 @@
 
     - name: run nginx
       command: systemctl restart nginx
+
+    - name: install ruby-build
+      shell: |
+        cd /home/vagrant
+        git clone --depth=1 https://github.com/rbenv/ruby-build.git
+        PREFIX=/usr/local ./ruby-build/install.sh
+
+    - name: install ruby 2.5.5
+      shell: |
+        if [ ! -f /usr/local/bin/ruby ]; then
+          ruby-build 2.5.5 /usr/local/bin/ruby
+        fi
 
 - hosts: dns
   remote_user: root
